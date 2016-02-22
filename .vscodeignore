@@ -1,0 +1,13 @@
+.vscode/**
+typings/**
+out/test/**
+test/**
+src/**
+**/*.map
+.gitignore
+tsconfig.json
+vsc-extension-quickstart.md
+node_modules/typescript/**
+node_modules/vscode/**
+node_modules/.bin/**
+node_modules/js-beautify/test/**
