@@ -2,16 +2,16 @@
 	"name": "vscode-JS-CSS-HTML-formatter",
 	"displayName" : "JS-CSS-HTML Formatter",
 	"description": "Formatter for JS, CSS, HTML",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"publisher": "lonefy",
     "galleryBanner": {
-        "color": "#0000FF",
+        "color": "#ddd",
         "theme": "dark"
     },
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/lonefy/vscode-js-css-html-formatter/issues",
-        "email": "smcbreen@microsoft.com"
+        "email": "lonefy@foxmail.com"
     },
     "homepage": "https://github.com/lonefy/vscode-js-css-html-formatter/blob/master/README.md",
     "repository": {
