@@ -1,12 +1,12 @@
 {
 	"name": "vscode-JS-CSS-HTML-formatter",
 	"displayName" : "JS-CSS-HTML Formatter",
-	"description": "Formatter for JS, CSS, HTML",
-	"version": "0.0.3",
+	"description": "Format and beautify JS, CSS, HTML code by using RMB",
+	"version": "0.0.4",
 	"publisher": "lonefy",
     "galleryBanner": {
         "color": "#ddd",
-        "theme": "dark"
+        "theme": "light"
     },
     "license": "MIT",
     "bugs": {
