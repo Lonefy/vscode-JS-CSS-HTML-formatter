@@ -1,8 +1,13 @@
 {
 	"name": "vscode-JS-CSS-HTML-formatter",
 	"displayName" : "JS-CSS-HTML Formatter",
+<<<<<<< HEAD
 	"description": "Format and beautify JS, CSS, HTML code by using shortkey or mouse button",
 	"version": "0.0.6",
+=======
+	"description": "Format and beautify JS, CSS, HTML code by using RMB",
+	"version": "0.0.4",
+>>>>>>> 623a88c06da4bd1570147dbba3a1f440a5a3d6fe
 	"publisher": "lonefy",
     "galleryBanner": {
         "color": "#ddd",
