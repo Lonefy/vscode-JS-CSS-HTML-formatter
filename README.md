@@ -3,8 +3,8 @@
 This extension is used for formatting your JS, CSS, HTML code.
 
 ##How To Use
-* 1. Click your RMB and choose `Format Code`
-* 2. Use `Alt+Shift+F` 
+*  open `Context Menu` and choose `Format Code`
+*  Use `Alt+Shift+F` 
 
 ## License
 [MIT](LICENSE)
