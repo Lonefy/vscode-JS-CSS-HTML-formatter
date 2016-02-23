@@ -12,7 +12,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
         var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
         range = new vscode.Range(start, end);
     }
-    
+
     var result: vscode.TextEdit[] = [];
 
     var content = document.getText(range);
@@ -20,12 +20,12 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
     if (!options) {
         options = { insertSpaces: true, tabSize: 4 };
     }
-    
+
     var beatiFunc = null;
-    
+
     switch (document.languageId) {
         case 'css':
-           beatiFunc = jsbeautify.css;                     
+            beatiFunc = jsbeautify.css;
             break;
         case 'javascript':
             beatiFunc = jsbeautify.js;
@@ -36,7 +36,8 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
         default:
             break;
     }
-   
+    if(!beatiFunc) return;
+    
     var beutifyOptions: jsbeautify.options = {
         indent_char: options.insertSpaces ? ' ' : '\t',
         indent_size: options.insertSpaces ? options.tabSize : 1,
@@ -55,12 +56,14 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    
-    registerDocType('css');
-    registerDocType('javascript');
-    registerDocType('html');
-    
-    function registerDocType(type){
+
+    var docType: Array<string> = ['css', 'javascript', 'html'];
+
+    for (var i = 0, l = docType.length; i < l; i++) {
+        registerDocType(docType[i]);
+    }
+
+    function registerDocType(type) {
         context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(type, {
             provideDocumentFormattingEdits: (document, options, token) => {
                 return format(document, null, options)
@@ -72,6 +75,6 @@ export function activate(context: vscode.ExtensionContext) {
                 var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
                 return format(document, new vscode.Range(start, end), options)
             }
-        }));        
+        }));
     }
 }
