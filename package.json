@@ -1,11 +1,11 @@
 {
 	"name": "vscode-JS-CSS-HTML-formatter",
 	"displayName" : "JS-CSS-HTML Formatter",
-	"description": "Format and beautify JS, CSS, HTML code by using shortkey or context menu",
-	"version": "0.0.7",
+	"description": "Format ,prettify and beautify JS, CSS, HTML code by using shortkey, context menu or CLI",
+	"version": "0.0.8",
 	"publisher": "lonefy",
     "galleryBanner": {
-        "color": "#ddd",
+        "color": "#eee",
         "theme": "light"
     },
     "license": "MIT",
