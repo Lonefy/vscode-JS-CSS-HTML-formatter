@@ -9,9 +9,9 @@ This extension is used for formatting your JS, CSS, HTML code.
 *  CLI: Press `F1`, enter `Format Code`
 
 >the upper 3 ways are not work for `Javascript` after `vscode v0.10.10`, but you can still format `CSS` and `HTML`.
-this problem seems to be solved after `v0.10.12`.
+this problem seems to be solved after vscode `v0.10.12`.
 
-###To format **Javascript,CSS and HTML** after v0.10.10
+###To format **Javascript,CSS and HTML** after vscode v0.10.10
 *  CLI: Press `F1`,enter `Formatter`
 
 
