@@ -1,9 +1,9 @@
 {
-	"name": "vscode-JS-CSS-HTML-formatter",
-	"displayName" : "JS-CSS-HTML Formatter",
-	"description": "Format ,prettify and beautify JS, CSS, HTML code by using shortkey, context menu or CLI",
-	"version": "0.0.9",
-	"publisher": "lonefy",
+    "name": "vscode-JS-CSS-HTML-formatter",
+    "displayName": "JS-CSS-HTML Formatter",
+    "description": "Format ,prettify and beautify JS, CSS, HTML code by using shortcuts, context menu or CLI",
+    "version": "0.0.10",
+    "publisher": "lonefy",
     "galleryBanner": {
         "color": "#eee",
         "theme": "light"
@@ -17,25 +17,32 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/lonefy/vscode-js-css-html-formatter"
-    },	
-	"engines": {
-		"vscode": "^0.10.1"
-	},
-	"activationEvents": [
+    },
+    "engines": {
+        "vscode": "^0.10.1"
+    },
+    "activationEvents": [
         "onLanguage:css",
-		"onLanguage:javascript",
-        "onLanguage:html"
-	],
-	"main": "./out/src/extension",
-	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-	},
-	"dependencies": {
-		"js-beautify": "^1.5.10"
-	},
-	"devDependencies": {
-		"typescript": "^1.6.2",
-		"vscode": "0.10.x"
-	}
+        "onLanguage:javascript",
+        "onLanguage:html",
+        "onCommand:Lonefy.formatting"
+    ],    
+    "contributes": {
+        "commands": [{
+            "command": "Lonefy.formatting",
+            "title": "Formatter"
+        }]
+    },
+    "main": "./out/src/extension",
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+    },
+    "dependencies": {
+        "js-beautify": "^1.5.10"
+    },
+    "devDependencies": {
+        "typescript": "^1.6.2",
+        "vscode": "0.10.x"
+    }
 }

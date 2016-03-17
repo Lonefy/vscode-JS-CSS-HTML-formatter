@@ -3,10 +3,17 @@
 This extension is used for formatting your JS, CSS, HTML code.
 
 ##How To Use
-There are 3 ways to format your code:
+
 *  open `Context Menu` and choose `Format Code`
-*  Use `Alt+Shift+F` 
-*  Use CLI ,Press `F1`,input `Format Code`
+*  shorkCuts: `Alt+Shift+F`
+*  CLI: Press `F1`, enter `Format Code`
+
+>the upper 3 ways are not work for `Javascript` after `vscode v0.10.10`, but you can still format `CSS` and `HTML`.
+this problem seems to be solved after `v0.10.12`.
+
+###To format **Javascript,CSS and HTML** after v0.10.10
+*  CLI: Press `F1`,enter `Formatter`
+
 
 ## License
 [MIT](LICENSE)
