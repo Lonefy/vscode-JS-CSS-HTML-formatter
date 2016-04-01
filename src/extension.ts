@@ -3,6 +3,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+import path = require('path');
+import fs = require('fs');
 import jsbeautify = require('js-beautify');
 
 export function format(document: vscode.TextDocument, range: vscode.Range, options: vscode.FormattingOptions) {
@@ -28,11 +30,9 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
 
 function beatify(documentContent: String, languageId, options) {
 
-    if (!options) {
-        options = { insertSpaces: true, tabSize: 4 };
-    }
-
+    var fileName = path.join(__dirname, 'config.json');
     var beatiFunc = null;
+    var c = vscode.workspace.getConfiguration('json')
     switch (languageId) {
         case 'css':
             beatiFunc = jsbeautify.css;
@@ -48,12 +48,13 @@ function beatify(documentContent: String, languageId, options) {
             break;
     }
     if (!beatiFunc) return;
-
-    var beutifyOptions: jsbeautify.options = {
-        indent_char: options.insertSpaces ? ' ' : '\t',
-        indent_size: options.insertSpaces ? options.tabSize : 1,
-        selector_separator_newline: false
+    var beutifyOptions;
+    try {
+        beutifyOptions =  require(fileName)[languageId];
+    } catch (error) {
+        beutifyOptions = {};
     }
+    // var beutifyOptions =  require(fileName)[languageId];//
 
     return beatiFunc(documentContent, beutifyOptions);
 }
@@ -75,17 +76,43 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
 
+    context.subscriptions.push(vscode.commands.registerCommand('Lonefy.formatterConfig', () => {
+
+        var fileName = path.join(__dirname, 'config.json')
+
+        vscode.workspace.openTextDocument(fileName).then(function(textDocument) {
+            if (!textDocument) {
+                vscode.window.showInformationMessage('Can not open file!');
+                return;
+            }
+            vscode.window.showTextDocument(textDocument).then(function(editor) {
+                if (!editor) {
+                    vscode.window.showInformationMessage('Can not show document!');
+                    return;
+                }
+                vscode.window.showInformationMessage('After editing the file, remember to Restart VScode');
+                
+            }, function() {
+                vscode.window.showInformationMessage('Can not Show file: ' + fileName);
+                return;
+            });
+        }, function() {
+            vscode.window.showInformationMessage('Not found file: ' + fileName);
+            return;
+        });
+    }));
+
     function registerDocType(type) {
         context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(type, {
             provideDocumentFormattingEdits: (document, options, token) => {
-                return formatter.registerBeautify()
+                return formatter.registerBeautify(null)
             }
         }));
         context.subscriptions.push(vscode.languages.registerDocumentRangeFormattingEditProvider(type, {
             provideDocumentRangeFormattingEdits: (document, range, options, token) => {
                 var start = new vscode.Position(0, 0);
                 var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
-                return formatter.registerBeautify()
+                return formatter.registerBeautify(new vscode.Range(start, end))
             }
         }));
     }
@@ -119,8 +146,6 @@ class Formatter {
 
         var content = document.getText(range);
 
-
-
         var formatted = beatify(content, document.languageId, options);
         if (formatted) {
             return activeEditor.edit(function(editor) {
@@ -133,7 +158,7 @@ class Formatter {
 
     }
 
-    public registerBeautify() {
+    public registerBeautify(range) {
         
         // Create as needed
         let window = vscode.window;
@@ -143,16 +168,10 @@ class Formatter {
         if (!editor) {
             return;
         }
-
         let document = editor.document;
-
-
-        var start = new vscode.Position(0, 0);
-        var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
+        
         //const range = new vscode.Range(0, 0, Number.MAX_VALUE, Number.MAX_VALUE);
-        return format(document, new vscode.Range(start, end), null);
-
-
+        return format(document, range, null);
     }
 
     dispose() {
