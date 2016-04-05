@@ -15,7 +15,7 @@ This extension is used for formatting your JS, CSS, HTML code.
 
 ##Config
 
-1. Press `F1`, ender `Formatter Config`,open the config file:
+1. Press `F1`, enter `Formatter Config`,open the config file:
 ![image](https://cloud.githubusercontent.com/assets/7921431/14059559/c941d5f6-f37f-11e5-8efe-c280ec75b02b.png)
 
 2. Edit the file as your needs. This extension uses `js-beautify` internally, so you can edit the parameters which `js-beautify` can use. 
@@ -30,7 +30,6 @@ This extension is used for formatting your JS, CSS, HTML code.
 [issue](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues)
 
 ##Changes Log：
-***
 ###0.1.0 26 Mar 2016
 * add Config file ,you can format your code as your own settings.  
 
