@@ -21,7 +21,7 @@ This extension is used for formatting your JS, CSS, HTML code.
 2. Edit the file as your needs. This extension uses `js-beautify` internally, so you can edit the parameters which `js-beautify` can use. 
 ![image](https://cloud.githubusercontent.com/assets/7921431/14059795/84b5b31c-f389-11e5-955b-2ba4d57f91d4.png)
 
-3. `Restart` vscode  **[!mportant]**
+3. `Restart` vscode  **[!Important]**
 
 ## License
 [MIT](https://github.com/lonefy/vscode-js-css-html-formatter/blob/master/LICENSE)
