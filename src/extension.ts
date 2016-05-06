@@ -6,9 +6,9 @@ import * as vscode from 'vscode';
 import path = require('path');
 import fs = require('fs');
 import jsbeautify = require('js-beautify');
+import mkdirp = require('mkdirp');
 
-export function format(document: vscode.TextDocument, range: vscode.Range, options: vscode.FormattingOptions) {
-
+export function format(document: vscode.TextDocument, range: vscode.Range) {
     if (range === null) {
         var start = new vscode.Position(0, 0);
         var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
@@ -19,7 +19,7 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
 
     var content = document.getText(range);
 
-    var formatted = beatify(content, document.languageId, options);
+    var formatted = beatify(content, document.languageId);
 
     if (formatted) {
         result.push(new vscode.TextEdit(range, formatted));
@@ -28,15 +28,18 @@ export function format(document: vscode.TextDocument, range: vscode.Range, optio
     return result;
 };
 
-function beatify(documentContent: String, languageId, options) {
+function beatify(documentContent: String, languageId) {
 
-    var fileName = path.join(__dirname, 'config.json');
+    var global = path.join(__dirname, 'formatter.json');
+    var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
+
     var beatiFunc = null;
-    var c = vscode.workspace.getConfiguration('json')
+
     switch (languageId) {
         case 'css':
             beatiFunc = jsbeautify.css;
             break;
+        case 'json':
         case 'javascript':
             beatiFunc = jsbeautify.js;
             break;
@@ -44,17 +47,21 @@ function beatify(documentContent: String, languageId, options) {
             beatiFunc = jsbeautify.html;
             break;
         default:
-            vscode.window.showInformationMessage('Sorry, this language is not supported. Only support Javascript, CSS and HTML.');
+            showMesage('Sorry, this language is not supported. Only support Javascript, CSS and HTML.');
             break;
     }
     if (!beatiFunc) return;
     var beutifyOptions;
+
     try {
-        beutifyOptions =  require(fileName)[languageId];
+        beutifyOptions = require(local)[languageId];
     } catch (error) {
-        beutifyOptions = {};
+        try {
+            beutifyOptions = require(global)[languageId];
+        } catch (error) {
+            beutifyOptions = {};
+        }
     }
-    // var beutifyOptions =  require(fileName)[languageId];//
 
     return beatiFunc(documentContent, beutifyOptions);
 }
@@ -63,7 +70,7 @@ function beatify(documentContent: String, languageId, options) {
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    var docType: Array<string> = ['css', 'javascript', 'html'];
+    var docType: Array<string> = ['css', 'javascript', 'html', 'json'];
 
     for (var i = 0, l = docType.length; i < l; i++) {
         registerDocType(docType[i]);
@@ -78,29 +85,30 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(vscode.commands.registerCommand('Lonefy.formatterConfig', () => {
 
-        var fileName = path.join(__dirname, 'config.json')
-
-        vscode.workspace.openTextDocument(fileName).then(function(textDocument) {
-            if (!textDocument) {
-                vscode.window.showInformationMessage('Can not open file!');
-                return;
-            }
-            vscode.window.showTextDocument(textDocument).then(function(editor) {
-                if (!editor) {
-                    vscode.window.showInformationMessage('Can not show document!');
-                    return;
-                }
-                vscode.window.showInformationMessage('After editing the file, remember to Restart VScode');
-                
-            }, function() {
-                vscode.window.showInformationMessage('Can not Show file: ' + fileName);
-                return;
-            });
-        }, function() {
-            vscode.window.showInformationMessage('Not found file: ' + fileName);
-            return;
-        });
+        formatter.openConfig(
+            path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json'),
+            function () {
+                showMesage('[Local]  After editing the file, remember to Restart VScode');
+            },
+            function () {
+                var fileName = path.join(__dirname, 'formatter.json');
+                formatter.openConfig(
+                    fileName,
+                    function () {
+                        showMesage('[Golbal]  After editing the file, remember to Restart VScode');
+                    },
+                    function () {
+                        showMesage('Not found file: ' + fileName);
+                    })
+            })
     }));
+
+
+    context.subscriptions.push(vscode.commands.registerCommand('Lonefy.formatterCreateLocalConfig', () => {
+        formatter.generateLocalConfig();
+    }));
+
+    vscode.workspace.onDidSaveTextDocument(formatter.onSave);
 
     function registerDocType(type) {
         context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(type, {
@@ -118,16 +126,16 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
 
+
 }
 
 class Formatter {
 
 
     public beautify() {
-        
         // Create as needed
         let window = vscode.window;
-        let range, options;
+        let range;
         // Get the current text editor
         let activeEditor = window.activeTextEditor;
         if (!activeEditor) {
@@ -146,9 +154,9 @@ class Formatter {
 
         var content = document.getText(range);
 
-        var formatted = beatify(content, document.languageId, options);
+        var formatted = beatify(content, document.languageId);
         if (formatted) {
-            return activeEditor.edit(function(editor) {
+            return activeEditor.edit(function (editor) {
                 var start = new vscode.Position(0, 0);
                 var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
                 range = new vscode.Range(start, end);
@@ -159,21 +167,117 @@ class Formatter {
     }
 
     public registerBeautify(range) {
-        
+
         // Create as needed
         let window = vscode.window;
-        
+
         // Get the current text editor
         let editor = window.activeTextEditor;
         if (!editor) {
             return;
         }
         let document = editor.document;
-        
-        //const range = new vscode.Range(0, 0, Number.MAX_VALUE, Number.MAX_VALUE);
-        return format(document, range, null);
+
+        return format(document, range);
     }
 
-    dispose() {
+    public generateLocalConfig() {
+        var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
+
+        var content = fs.readFileSync(path.join(__dirname, 'formatter.json')).toString('utf8');
+
+        mkdirp.sync(path.dirname(local));
+        fs.stat(local, function (err, stat) {
+            if (err == null) {
+                showMesage('Local config file existed: ' + local);
+            } else if (err.code == 'ENOENT') {
+                fs.writeFile(local, content, function (e) {
+                    showMesage('Generate local config file: ' + local)
+                })
+            } else {
+                showMesage('Some other error: ' + err.code);
+            }
+        });
+    }
+
+    public openConfig(filename, succ, fail) {
+        vscode.workspace.openTextDocument(filename).then(function (textDocument) {
+            if (!textDocument) {
+                showMesage('Can not open file!');
+                return;
+            }
+            vscode.window.showTextDocument(textDocument).then(function (editor) {
+                if (!editor) {
+                    showMesage('Can not show document!');
+                    return;
+                }
+                !!succ && succ();
+
+            }, function () {
+                showMesage('Can not Show file: ' + filename);
+                return;
+            });
+        }, function () {
+            !!fail && fail();
+            return;
+        });
+    }
+
+    public onSave(document) {
+
+        var global = path.join(__dirname, 'formatter.json');
+        var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
+        var onSave;
+
+        try {
+            onSave = require(local).onSave;
+        } catch (error) {
+            try {
+                onSave = require(global).onSave;
+            } catch (error) {
+                onSave = true;
+            }
+        }
+        if (!onSave) {
+            return
+        }
+        if (document.beautifyLock) {
+            delete document.beautifyLock
+            return;
+        }
+        // Get the current text editor
+        let activeEditor = vscode.window.activeTextEditor;
+        if (!activeEditor) {
+            return;
+        }
+
+        var start = new vscode.Position(0, 0);
+        var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
+        var range = new vscode.Range(start, end);
+
+
+        var result: vscode.TextEdit[] = [];
+
+        var content = document.getText(range);
+
+        var formatted = beatify(content, document.languageId);
+        if (formatted) {
+            return activeEditor.edit(function (editor) {
+                console.log(editor.replace)
+                var start = new vscode.Position(0, 0);
+                var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
+                range = new vscode.Range(start, end);
+                document.save();
+                document.beautifyLock = true;
+                return editor.replace(range, formatted);
+            });
+        }
+
+
     }
 }
+
+function showMesage(msg: string) {
+    vscode.window.showInformationMessage(msg);
+}
+

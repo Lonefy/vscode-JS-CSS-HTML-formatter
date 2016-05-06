@@ -1,6 +1,6 @@
 ## VS Code JS, CSS, HTML Formatting
 
-This extension is used for formatting your JS, CSS, HTML code.
+This extension is used for formatting your JS, CSS, HTML, JSON file.
 
 ##How To Use
 
@@ -8,18 +8,17 @@ This extension is used for formatting your JS, CSS, HTML code.
 *  shortcuts: `Alt+Shift+F`
 *  CLI: Press `F1`, enter `Format Code`
 
->the upper 3 ways don't work for `Javascript` after `vscode v0.10.10`, but you can still format `CSS` and `HTML`.
+>the upper 3 ways don't work for `Javascript`&`JSON` after `vscode v0.10.10`, but you can still format `CSS` and `HTML`.
 
 ###To format **Javascript,CSS and HTML** after vscode v0.10.10
 *  CLI: Press `F1`,enter `Formatter`
 
 ##Config
 
-1. Press `F1`, enter `Formatter Config`,open the config file:
-![image](https://cloud.githubusercontent.com/assets/7921431/14059559/c941d5f6-f37f-11e5-8efe-c280ec75b02b.png)
-
+1. Press `F1`, enter `Formatter Config`, open the config file:
+![image](https://cloud.githubusercontent.com/assets/7921431/15070016/2bf251a4-13b4-11e6-8ebe-eefaa6adcbf6.png)
 2. Edit the file as your needs. This extension uses `js-beautify` internally, so you can edit the parameters which `js-beautify` can use. 
-![image](https://cloud.githubusercontent.com/assets/7921431/14059795/84b5b31c-f389-11e5-955b-2ba4d57f91d4.png)
+![image](https://cloud.githubusercontent.com/assets/7921431/15069887/47ee136c-13b3-11e6-9505-4a3b378be601.png)
 
 3. `Restart` vscode  **[!Important]**
 
@@ -27,9 +26,21 @@ This extension is used for formatting your JS, CSS, HTML code.
 [MIT](https://github.com/lonefy/vscode-js-css-html-formatter/blob/master/LICENSE)
 
 ##Bug and Issue
-[issue](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues)
+[Issue](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues)
 
 ##Changes Log：
+
+###0.1.3 06 May 2016
+* New Feature: `on save`.[Issue #4](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/4)
+
+    Add a new field in config file `onSave`(default true);
+
+* New Feature: `local config file`. [Issue#3](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/3)
+    
+    Use `F1-> Formatter Create Local Config` to generate the local config file in `.vscode folder` of your project. Formatter will use the **local config file** first.
+   
+* Support `JSON` file.
+
 ###0.1.0 26 Mar 2016
 * add Config file ,you can format your code as your own settings.  
 
