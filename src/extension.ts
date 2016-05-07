@@ -40,6 +40,7 @@ function beatify(documentContent: String, languageId) {
             beatiFunc = jsbeautify.css;
             break;
         case 'json':
+            languageId = 'javascript';
         case 'javascript':
             beatiFunc = jsbeautify.js;
             break;

@@ -1,66 +1,67 @@
 {
-  "name": "vscode-JS-CSS-HTML-formatter",
-  "displayName": "JS-CSS-HTML Formatter",
-  "description": "Format ,prettify and beautify JS, CSS, HTML code by using shortcuts, context menu or CLI",
-  "version": "0.1.3",
-  "publisher": "lonefy",
-  "galleryBanner": {
-    "color": "#eee",
-    "theme": "light"
-  },
-  "categories": [
-    "Other",
-    "Languages"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lonefy/vscode-js-css-html-formatter/issues",
-    "email": "lonefy@foxmail.com"
-  },
-  "homepage": "https://github.com/lonefy/vscode-js-css-html-formatter/blob/master/README.md",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lonefy/vscode-js-css-html-formatter"
-  },
-  "engines": {
-    "vscode": "^0.11.0"
-  },
-  "activationEvents": [
-    "onLanguage:json",      
-    "onLanguage:css",
-    "onLanguage:javascript",
-    "onLanguage:html",
-    "onCommand:Lonefy.formatting",
-    "onCommand:Lonefy.formatterConfig",
-    "onCommand:Lonefy.formatterCreateLocalConfig"
-  ],
-  "contributes": {
-    "commands": [
-      {
-        "command": "Lonefy.formatting",
-        "title": "Formatter"
-      },
-      {
-        "command": "Lonefy.formatterConfig",
-        "title": "Formatter Config"
-      },
-      {
-        "command": "Lonefy.formatterCreateLocalConfig",
-        "title": "Formatter Create Local Config"
-      }
-    ]
-  },
-  "main": "./out/src/extension",
-  "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-  },
-  "dependencies": {
-    "js-beautify": "^1.5.10",
-    "mkdirp": "^0.5.1"
-  },
-  "devDependencies": {
-    "typescript": "^1.6.2",
-    "vscode": "0.11.x"
-  }
+    "name": "vscode-JS-CSS-HTML-formatter",
+    "displayName": "JS-CSS-HTML Formatter",
+    "description": "Format ,prettify and beautify JS, CSS, HTML code by using shortcuts, context menu or CLI",
+    "version": "0.1.3",
+    "publisher": "lonefy",
+    "galleryBanner": {
+        "color": "#eee",
+        "theme": "light"
+    },
+    "categories": [
+        "Other",
+        "Languages"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lonefy/vscode-js-css-html-formatter/issues",
+        "email": "lonefy@foxmail.com"
+    },
+    "homepage": "https://github.com/lonefy/vscode-js-css-html-formatter/blob/master/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lonefy/vscode-js-css-html-formatter"
+    },
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "activationEvents": [
+        "onLanguage:json",
+        "onLanguage:css",
+        "onLanguage:javascript",
+        "onLanguage:html",
+        "onCommand:Lonefy.formatting",
+        "onCommand:Lonefy.formatterConfig",
+        "onCommand:Lonefy.formatterCreateLocalConfig"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "Lonefy.formatting",
+                "title": "Formatter"
+            },
+            {
+                "command": "Lonefy.formatterConfig",
+                "title": "Formatter Config"
+            },
+            {
+                "command": "Lonefy.formatterCreateLocalConfig",
+                "title": "Formatter Create Local Config"
+            }
+        ]
+    },
+    "main": "./out/src/extension",
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "dependencies": {
+        "js-beautify": "^1.5.10",
+        "mkdirp": "^0.5.1"
+    },
+    "devDependencies": {
+        "typescript": "^1.8.5",
+        "vscode": "0.11.0"
+    }
 }
