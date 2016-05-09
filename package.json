@@ -2,7 +2,7 @@
     "name": "vscode-JS-CSS-HTML-formatter",
     "displayName": "JS-CSS-HTML Formatter",
     "description": "Format ,prettify and beautify JS, CSS, HTML code by using shortcuts, context menu or CLI",
-    "version": "0.1.3",
+    "version": "0.1.31",
     "publisher": "lonefy",
     "galleryBanner": {
         "color": "#eee",
@@ -35,20 +35,16 @@
         "onCommand:Lonefy.formatterCreateLocalConfig"
     ],
     "contributes": {
-        "commands": [
-            {
-                "command": "Lonefy.formatting",
-                "title": "Formatter"
-            },
-            {
-                "command": "Lonefy.formatterConfig",
-                "title": "Formatter Config"
-            },
-            {
-                "command": "Lonefy.formatterCreateLocalConfig",
-                "title": "Formatter Create Local Config"
-            }
-        ]
+        "commands": [{
+            "command": "Lonefy.formatting",
+            "title": "Formatter"
+        }, {
+            "command": "Lonefy.formatterConfig",
+            "title": "Formatter Config"
+        }, {
+            "command": "Lonefy.formatterCreateLocalConfig",
+            "title": "Formatter Create Local Config"
+        }]
     },
     "main": "./out/src/extension",
     "scripts": {

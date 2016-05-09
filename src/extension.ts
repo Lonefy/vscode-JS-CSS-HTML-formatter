@@ -226,6 +226,7 @@ class Formatter {
 
     public onSave(document) {
 
+        var docType: Array<string> = ['css', 'javascript', 'html', 'json']
         var global = path.join(__dirname, 'formatter.json');
         var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
         var onSave;
@@ -240,7 +241,10 @@ class Formatter {
             }
         }
         if (!onSave) {
-            return
+            return;
+        }
+        if( docType.indexOf(document.languageId) == -1){
+            return;
         }
         if (document.beautifyLock) {
             delete document.beautifyLock
