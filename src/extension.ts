@@ -27,11 +27,14 @@ export function format(document: vscode.TextDocument, range: vscode.Range) {
 
     return result;
 };
+function getRootPath(){
+    return vscode.workspace.rootPath||'.';
+}
 
 function beatify(documentContent: String, languageId) {
 
     var global = path.join(__dirname, 'formatter.json');
-    var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
+    var local = path.join(getRootPath(), '.vscode', 'formatter.json');
 
     var beatiFunc = null;
 
@@ -87,7 +90,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('Lonefy.formatterConfig', () => {
 
         formatter.openConfig(
-            path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json'),
+            path.join(getRootPath(), '.vscode', 'formatter.json'),
             function () {
                 showMesage('[Local]  After editing the file, remember to Restart VScode');
             },
@@ -183,7 +186,7 @@ class Formatter {
     }
 
     public generateLocalConfig() {
-        var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
+        var local = path.join(getRootPath(), '.vscode', 'formatter.json');
 
         var content = fs.readFileSync(path.join(__dirname, 'formatter.json')).toString('utf8');
 
@@ -228,7 +231,7 @@ class Formatter {
 
         var docType: Array<string> = ['css', 'javascript', 'html', 'json']
         var global = path.join(__dirname, 'formatter.json');
-        var local = path.join(vscode.workspace.rootPath, '.vscode', 'formatter.json');
+        var local = path.join(getRootPath(), '.vscode', 'formatter.json');
         var onSave;
 
         try {
