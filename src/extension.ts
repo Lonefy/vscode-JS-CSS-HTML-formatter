@@ -39,6 +39,8 @@ function beatify(documentContent: String, languageId) {
     var beatiFunc = null;
 
     switch (languageId) {
+        case 'scss':
+            languageId = 'css';
         case 'css':
             beatiFunc = jsbeautify.css;
             break;
@@ -74,7 +76,7 @@ function beatify(documentContent: String, languageId) {
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    var docType: Array<string> = ['css', 'javascript', 'html', 'json'];
+    var docType: Array<string> = ['css', 'scss', 'javascript', 'html', 'json'];
 
     for (var i = 0, l = docType.length; i < l; i++) {
         registerDocType(docType[i]);
@@ -229,7 +231,7 @@ class Formatter {
 
     public onSave(document) {
 
-        var docType: Array<string> = ['css', 'javascript', 'html', 'json']
+        var docType: Array<string> = ['css', 'scss', 'javascript', 'html', 'json']
         var global = path.join(__dirname, 'formatter.json');
         var local = path.join(getRootPath(), '.vscode', 'formatter.json');
         var onSave;
