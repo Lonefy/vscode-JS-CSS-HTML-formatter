@@ -30,7 +30,10 @@ This extension is used for formatting your JS, CSS, HTML, JSON file.
 
 ##Changes Log：
 
-###0.1.4 15 July 2016
+###0.2.0 20 July 2016
+* New Feature: `SCSS support`[Issue #14](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/14)
+
+###0.1.32 15 July 2016
 * (BUG FIX) Path maybe undefined
 * ES6/7 Import Syntax **Need to update your `formatter.json` file** [Issue #9](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/9)
 * Avoid line break to indent the CSS code[Issue #8](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/8) 
@@ -50,4 +53,4 @@ This extension is used for formatting your JS, CSS, HTML, JSON file.
 * add Config file ,you can format your code as your own settings.  
 
 ##THANKS:
-rjmacarthy, zhaopengme 
+rjmacarthy, zhaopengme, Arrow7000

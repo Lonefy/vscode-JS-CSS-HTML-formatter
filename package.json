@@ -2,7 +2,7 @@
     "name": "vscode-JS-CSS-HTML-formatter",
     "displayName": "JS-CSS-HTML Formatter",
     "description": "Format ,prettify and beautify JS, CSS, HTML code by using shortcuts, context menu or CLI",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "publisher": "lonefy",
     "galleryBanner": {
         "color": "#eee",
