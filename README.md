@@ -1,6 +1,6 @@
 ## VS Code JS, CSS, HTML Formatting
 
-This extension is used for formatting your JS, CSS, HTML, JSON file.
+This extension wraps [js-beautify](https://github.com/beautify-web/js-beautify) to format your JS, CSS, HTML, JSON file.
 
 ##How To Use
 
@@ -16,9 +16,12 @@ This extension is used for formatting your JS, CSS, HTML, JSON file.
 ##Config
 
 1. Press `F1`, enter `Formatter Config`, open the config file:
-![image](https://cloud.githubusercontent.com/assets/7921431/15070016/2bf251a4-13b4-11e6-8ebe-eefaa6adcbf6.png)
-2. Edit the file as your needs. This extension uses `js-beautify` internally, so you can edit the parameters which `js-beautify` can use. 
-![image](https://cloud.githubusercontent.com/assets/7921431/15069887/47ee136c-13b3-11e6-9505-4a3b378be601.png)
+
+   ![image](https://cloud.githubusercontent.com/assets/7921431/15070016/2bf251a4-13b4-11e6-8ebe-eefaa6adcbf6.png)
+
+2. Edit the file as your needs. This extension uses `js-beautify` internally, so you can edit the parameters which `js-beautify` can use.
+
+   ![image](https://cloud.githubusercontent.com/assets/7921431/15069887/47ee136c-13b3-11e6-9505-4a3b378be601.png)
 
 3. `Restart` vscode  **[!Important]**
 
