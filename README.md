@@ -56,4 +56,4 @@ This extension wraps [js-beautify](https://github.com/beautify-web/js-beautify) 
 * add Config file ,you can format your code as your own settings.  
 
 ##THANKS:
-rjmacarthy, zhaopengme, Arrow7000
+rjmacarthy, zhaopengme, Arrow7000, bitwiseman

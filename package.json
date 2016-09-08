@@ -2,7 +2,7 @@
     "name": "vscode-JS-CSS-HTML-formatter",
     "displayName": "JS-CSS-HTML Formatter",
     "description": "Format ,prettify and beautify JS, CSS, HTML code by using shortcuts, context menu or CLI",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "lonefy",
     "galleryBanner": {
         "color": "#eee",
@@ -30,6 +30,7 @@
         "onLanguage:css",
         "onLanguage:javascript",
         "onLanguage:html",
+        "onLanguage:scss",
         "onCommand:Lonefy.formatting",
         "onCommand:Lonefy.formatterConfig",
         "onCommand:Lonefy.formatterCreateLocalConfig"
@@ -53,7 +54,7 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
-        "js-beautify": "^1.5.10",
+        "js-beautify": "^1.6.4",
         "mkdirp": "^0.5.1"
     },
     "devDependencies": {
