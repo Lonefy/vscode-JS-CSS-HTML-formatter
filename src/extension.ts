@@ -52,6 +52,9 @@ function beatify(documentContent: String, languageId) {
         case 'html':
             beatiFunc = jsbeautify.html;
             break;
+        case 'php':
+            beatiFunc = jsbeautify.html;
+            break;
         default:
             showMesage('Sorry, this language is not supported. Only support Javascript, CSS and HTML.');
             break;
