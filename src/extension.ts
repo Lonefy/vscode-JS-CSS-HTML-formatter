@@ -8,6 +8,7 @@ import fs = require('fs');
 import jsbeautify = require('js-beautify');
 import mkdirp = require('mkdirp');
 
+// var saveLock = false;
 export function format(document: vscode.TextDocument, range: vscode.Range) {
     if (range === null) {
         var start = new vscode.Position(0, 0);
@@ -27,8 +28,8 @@ export function format(document: vscode.TextDocument, range: vscode.Range) {
 
     return result;
 };
-function getRootPath(){
-    return vscode.workspace.rootPath||'.';
+function getRootPath() {
+    return vscode.workspace.rootPath || '.';
 }
 
 function beatify(documentContent: String, languageId) {
@@ -114,7 +115,10 @@ export function activate(context: vscode.ExtensionContext) {
         formatter.generateLocalConfig();
     }));
 
-    vscode.workspace.onDidSaveTextDocument(formatter.onSave);
+    context.subscriptions.push(vscode.workspace.onWillSaveTextDocument(e => {
+        formatter.onSave(e.document)
+    }));
+
 
     function registerDocType(type) {
         context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(type, {
@@ -245,16 +249,14 @@ class Formatter {
                 onSave = true;
             }
         }
+
         if (!onSave) {
             return;
         }
-        if( docType.indexOf(document.languageId) == -1){
+        if (docType.indexOf(document.languageId) == -1) {
             return;
         }
-        if (document.beautifyLock) {
-            delete document.beautifyLock
-            return;
-        }
+
         // Get the current text editor
         let activeEditor = vscode.window.activeTextEditor;
         if (!activeEditor) {
@@ -265,12 +267,12 @@ class Formatter {
         var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
         var range = new vscode.Range(start, end);
 
-
         var result: vscode.TextEdit[] = [];
 
         var content = document.getText(range);
 
         var formatted = beatify(content, document.languageId);
+
         if (formatted) {
             return activeEditor.edit(function (editor) {
                 console.log(editor.replace)
@@ -278,7 +280,8 @@ class Formatter {
                 var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
                 range = new vscode.Range(start, end);
                 document.save();
-                document.beautifyLock = true;
+                // saveLock = false
+                activeEditor = null
                 return editor.replace(range, formatted);
             });
         }
