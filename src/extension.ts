@@ -8,7 +8,6 @@ import fs = require('fs');
 import jsbeautify = require('js-beautify');
 import mkdirp = require('mkdirp');
 
-// var saveLock = false;
 export function format(document: vscode.TextDocument, range: vscode.Range) {
     if (range === null) {
         var start = new vscode.Position(0, 0);
@@ -280,7 +279,6 @@ class Formatter {
                 var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
                 range = new vscode.Range(start, end);
                 document.save();
-                // saveLock = false
                 activeEditor = null
                 return editor.replace(range, formatted);
             });
