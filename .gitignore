@@ -2,4 +2,7 @@ out
 node_modules
 test
 _test
-*.vsix
+.vscode-test
+/typings/modules/*
+/typings/index.d.ts
+/*.vsix

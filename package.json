@@ -5,11 +5,12 @@
     "version": "0.2.2",
     "publisher": "lonefy",
     "galleryBanner": {
-        "color": "#eee",
+        "color": "#e5e5e5",
         "theme": "light"
     },
     "categories": [
         "Other",
+        "Formatter",
         "Languages"
     ],
     "license": "MIT",
@@ -59,6 +60,9 @@
     },
     "devDependencies": {
         "typescript": "^2.0.3",
-        "vscode": "^1.0.0"
+        "vscode": "^1.0.0",
+        "@types/node": "^6.0.40",
+        "@types/strip-json-comments": "^0.0.28",
+        "@types/resolve-from": "0.0.18"
     }
 }
