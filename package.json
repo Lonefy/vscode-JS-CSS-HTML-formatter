@@ -37,20 +37,16 @@
         "onCommand:Lonefy.formatterCreateLocalConfig"
     ],
     "contributes": {
-        "commands": [
-            {
-                "command": "Lonefy.formatting",
-                "title": "Formatter"
-            },
-            {
-                "command": "Lonefy.formatterConfig",
-                "title": "Formatter Config"
-            },
-            {
-                "command": "Lonefy.formatterCreateLocalConfig",
-                "title": "Formatter Create Local Config"
-            }
-        ]
+        "commands": [{
+            "command": "Lonefy.formatting",
+            "title": "Formatter"
+        }, {
+            "command": "Lonefy.formatterConfig",
+            "title": "Formatter Config"
+        }, {
+            "command": "Lonefy.formatterCreateLocalConfig",
+            "title": "Formatter Create Local Config"
+        }]
     },
     "main": "./out/src/extension",
     "scripts": {
