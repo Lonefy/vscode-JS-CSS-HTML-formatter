@@ -24,7 +24,7 @@
         "url": "https://github.com/lonefy/vscode-js-css-html-formatter"
     },
     "engines": {
-        "vscode": "^1.0.0"
+        "vscode": "^1.6.0"
     },
     "activationEvents": [
         "onLanguage:json",
@@ -37,16 +37,20 @@
         "onCommand:Lonefy.formatterCreateLocalConfig"
     ],
     "contributes": {
-        "commands": [{
-            "command": "Lonefy.formatting",
-            "title": "Formatter"
-        }, {
-            "command": "Lonefy.formatterConfig",
-            "title": "Formatter Config"
-        }, {
-            "command": "Lonefy.formatterCreateLocalConfig",
-            "title": "Formatter Create Local Config"
-        }]
+        "commands": [
+            {
+                "command": "Lonefy.formatting",
+                "title": "Formatter"
+            },
+            {
+                "command": "Lonefy.formatterConfig",
+                "title": "Formatter Config"
+            },
+            {
+                "command": "Lonefy.formatterCreateLocalConfig",
+                "title": "Formatter Create Local Config"
+            }
+        ]
     },
     "main": "./out/src/extension",
     "scripts": {
