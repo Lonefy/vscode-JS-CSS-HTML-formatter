@@ -271,7 +271,6 @@ class Formatter {
             var start = new vscode.Position(0, 0);
             var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
             range = new vscode.Range(start, end);
-            document.save();
             var edit = vscode.TextEdit.replace(range, formatted);
             e.waitUntil(Promise.resolve([edit]));
         }
