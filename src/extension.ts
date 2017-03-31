@@ -69,6 +69,11 @@ function beatify(documentContent: String, languageId) {
         }
     }
 
+    if (beutifyOptions === false) {
+        // console.log('Formatting disabled for ' + languageId);
+        return;
+    }
+
     return beatiFunc(documentContent, beutifyOptions);
 }
 
