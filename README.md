@@ -32,6 +32,9 @@ This extension wraps [js-beautify](https://github.com/beautify-web/js-beautify) 
 [Issue](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues)
 
 ##Changes Log：
+###0.2.3 31 Mar 2017
+* (BUG FIX): Try to fix the saving problem
+
 ###0.2.2 23 Nov 2016
 * (BUG FIX): `onSave` feature.Try to fix the `Save loop` problem.[Issue #20](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/20)
 * New VSCode API changes:[Issue #30](https://github.com/Lonefy/vscode-JS-CSS-HTML-formatter/issues/30);
