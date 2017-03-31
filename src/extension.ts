@@ -115,7 +115,7 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     context.subscriptions.push(vscode.workspace.onWillSaveTextDocument(e => {
-        formatter.onSave(e.document)
+        formatter.onSave(e)
     }));
 
 
@@ -232,8 +232,8 @@ class Formatter {
         });
     }
 
-    public onSave(document) {
-
+    public onSave(e: vscode.TextDocumentWillSaveEvent) {
+        var { document } = e;
         var docType: Array<string> = ['css', 'scss', 'javascript', 'html', 'json']
         var global = path.join(__dirname, 'formatter.json');
         var local = path.join(getRootPath(), '.vscode', 'formatter.json');
@@ -256,11 +256,6 @@ class Formatter {
             return;
         }
 
-        // Get the current text editor
-        let activeEditor = vscode.window.activeTextEditor;
-        if (!activeEditor) {
-            return;
-        }
 
         var start = new vscode.Position(0, 0);
         var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
@@ -273,17 +268,12 @@ class Formatter {
         var formatted = beatify(content, document.languageId);
 
         if (formatted) {
-            return activeEditor.edit(function (editor) {
-                console.log(editor.replace)
-                var start = new vscode.Position(0, 0);
-                var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
-                range = new vscode.Range(start, end);
-                document.save();
-                activeEditor = null
-                return editor.replace(range, formatted);
-            });
+            var start = new vscode.Position(0, 0);
+            var end = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
+            range = new vscode.Range(start, end);
+            var edit = vscode.TextEdit.replace(range, formatted);
+            e.waitUntil(Promise.resolve([edit]));
         }
-
 
     }
 }
