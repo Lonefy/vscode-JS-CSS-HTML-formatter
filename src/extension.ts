@@ -76,6 +76,8 @@ function beatify(documentContent: String, languageId) {
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
+    var newSelection;
+    var editor = vscode.window.activeTextEditor;
     var docType: Array<string> = ['css', 'scss', 'javascript', 'html', 'json'];
 
     for (var i = 0, l = docType.length; i < l; i++) {
@@ -115,7 +117,17 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     context.subscriptions.push(vscode.workspace.onWillSaveTextDocument(e => {
-        formatter.onSave(e)
+        formatter.onSave(e);
+        if (editor.selection.isEmpty) {
+            var position = editor.selection.active;
+        }
+        var lineLength = editor.document.lineAt(position.line).text.length
+        var newPosition = position.with(position.line, lineLength > 0 ? lineLength : 0);
+        newSelection = new vscode.Selection(newPosition, newPosition); // preserve cursor before save
+    }));
+
+    context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(function (e) {
+        editor.selection = newSelection // move cursor after save
     }));
 
 
@@ -274,7 +286,7 @@ class Formatter {
             var edit = vscode.TextEdit.replace(range, formatted);
             e.waitUntil(Promise.resolve([edit]));
         }
-
+        
     }
 }
 
