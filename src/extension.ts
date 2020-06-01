@@ -245,7 +245,7 @@ class Formatter {
             try {
                 onSave = require(global).onSave;
             } catch (error) {
-                onSave = true;
+                onSave = false;
             }
         }
 
